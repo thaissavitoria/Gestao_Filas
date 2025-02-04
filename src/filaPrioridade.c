@@ -50,7 +50,6 @@ void RemoveDaFila(FilaPrioridade *fila) {
         return;
     }
 
-    printf("here\n");
     NoFila *aux = fila->inicio;
 
     fila->inicio = aux->prox;

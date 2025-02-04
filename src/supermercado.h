@@ -11,7 +11,6 @@ typedef struct Supermercado {
 
 void InicializaSupermercado(Supermercado *sup);
 
-
 void CadastrarCliente(Supermercado *sup);
 void InsereClienteNaFila(Supermercado *sup, Cliente *cli, unsigned int numeroCaixa);
 

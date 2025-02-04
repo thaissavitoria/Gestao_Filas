@@ -70,18 +70,28 @@ void CadastrarCliente(Supermercado *sup) {
     } while (resultado != 1);
 
     unsigned int caixaEscolhido;
+    bool cancelarOp = false;
     Caixa caixa;
     do {
         do {
             printf("\nEscolha o caixa em que o cliente vai entrar(1-5):\n");
+            printf("\t0 - sair\n");
             resultado = scanf("%u", &caixaEscolhido);
 
+            if (caixaEscolhido == 0) {
+                printf("\nOperação cancelada!\n");
+                cancelarOp = true;
+                break;
+            }
             if (resultado != 1) {
                 printf("Entrada inválida. Tente novamente.\n");
                 while (getchar() != '\n');
             }
         } while (resultado != 1);
 
+        if (cancelarOp) {
+            break;
+        }
         caixa = *sup->caixas[caixaEscolhido - 1];
 
         if (!caixa.estado) {
@@ -89,6 +99,10 @@ void CadastrarCliente(Supermercado *sup) {
             caixaEscolhido = 6;
         }
     } while (caixaEscolhido > 5);
+
+    if (cancelarOp) {
+        return;
+    }
 
     Cliente *cli = (Cliente *)malloc(sizeof(Cliente));
     cli->cpfCliente = cpf;
@@ -117,15 +131,14 @@ void AtenderCliente(Supermercado *sup) {
                 while (getchar() != '\n');
             }
         } while (resultado != 1);
-
-        Caixa *caixa = sup->caixas[caixaEscolhido - 1];
-        if (!caixa->estado) {
-            printf("\nCaixa fechado, escolha outro!\n");
-            caixaEscolhido = 6;
-        }
     } while (caixaEscolhido > 5);
 
-    printf("Ca: %u\n", caixaEscolhido);
+    Caixa *caixa = sup->caixas[caixaEscolhido - 1];
+    if (!caixa->estado) {
+        printf("\nCaixa fechado, escolha outro!\n");
+        return;
+    }
+
     RemoveDaFila(sup->caixas[caixaEscolhido - 1]->fila);
 }
 
