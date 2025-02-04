@@ -33,6 +33,10 @@ int main() {
 
         case 3:
             AbrirOuFecharCaixa(sup);
+            if (sup->qtdCaixasAbertos == 0) {
+                printf("\n COMO NÃO HA CAIXAS ABERTOS O SUPERMERCADO FOI FECHADO! Obrigada por utilizar nosso programa!\n");
+                return 0;
+            }
             break;
 
         case 4:
